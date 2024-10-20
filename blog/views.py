@@ -239,7 +239,7 @@ def delete_blog(request, id):
         blog = blog_collection.find_one({'_id': ObjectId(id)})
         if not blog:
             return JsonResponse({'error': 'Blog not found'}, status=404)
-        file_key = f"media/blog_images/{blog["image"]["public_id"]}"
+        file_key = f"media/blog_images/{blog['image']['public_id']}"
         s3.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=file_key)
         blog_collection.find_one_and_delete({'_id': ObjectId(id)})
         return JsonResponse({'message': 'Blog deleted successfully'}, status=200)
